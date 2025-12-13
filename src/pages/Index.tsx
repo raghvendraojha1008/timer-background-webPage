@@ -214,7 +214,7 @@ const Index = () => {
         {view === "settings" && <Settings settings={settings} onSettingsChange={setSettings} />}
         {view === "blank" && (
           <div className="text-center">
-            <p className="text-white/60 text-lg">Blank page - add your content here</p>
+            <p className="text-white/60 text-lg"></p>
           </div>
         )}
       </div>
