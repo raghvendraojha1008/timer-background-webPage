@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Settings as SettingsIcon, Clock, Timer as TimerIcon, CircleDot } from "lucide-react";
+import { Settings as SettingsIcon, Clock, Timer as TimerIcon, CircleDot, Plus } from "lucide-react";
 import { Settings, SettingsType } from "@/components/Settings";
 import { Timer } from "@/components/Timer";
 import { Stopwatch } from "@/components/Stopwatch";
@@ -16,7 +16,7 @@ const gradients = [
   "var(--gradient-sky)",
 ];
 
-type View = "clock" | "timer" | "stopwatch" | "settings";
+type View = "clock" | "timer" | "stopwatch" | "settings" | "blank";
 
 const DEFAULT_SETTINGS: SettingsType = {
   bgChangeInterval: 30000,
@@ -149,12 +149,20 @@ const Index = () => {
         >
           <CircleDot className="h-5 w-5" />
         </Button>
+        <Button
+          variant={view === "blank" ? "default" : "outline"}
+          size="icon"
+          onClick={() => setView("blank")}
+          className="bg-white/10 hover:bg-white/20 border-white/20"
+        >
+          <Plus className="h-5 w-5" />
+        </Button>
       </div>
 
       <Button
         variant={view === "settings" ? "default" : "outline"}
         size="icon"
-        onClick={() => setView("settings")}
+        onClick={() => setView(view === "settings" ? "clock" : "settings")}
         className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 border-white/20"
       >
         <SettingsIcon className="h-5 w-5" />
@@ -204,6 +212,11 @@ const Index = () => {
           />
         )}
         {view === "settings" && <Settings settings={settings} onSettingsChange={setSettings} />}
+        {view === "blank" && (
+          <div className="text-center">
+            <p className="text-white/60 text-lg">Blank page - add your content here</p>
+          </div>
+        )}
       </div>
     </div>
   );
